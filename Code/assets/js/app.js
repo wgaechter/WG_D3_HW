@@ -48,6 +48,7 @@ d3.csv("assets/data/data.csv").then(function(data) {
     data.forEach(function(data) {
         data.smokes = +data.smokes;
         data.income = +data.income;
+        //data.abbr = +data.abbr;
     });
 
     //Linear Scale
@@ -75,17 +76,46 @@ d3.csv("assets/data/data.csv").then(function(data) {
         .call(yAxis);
 
     //State Circles
-    var circlesGroup = chartGroup.selectAll("circle")
+    /* var circlesGroup = chartGroup.selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
+        .attr("class", "StateCircle")
         .attr("cx", d => xLinearScale(d.income))
         .attr("cy", d => yLinearScale(d.smokes))
         .attr("r", "10")
-        .attr("fill", "#325383")
-        .attr("opacity", ".9")
+        .attr("fill", "#27b2ff")
+        .attr("stroke", "black")
+        .attr("stroke-width", "1")
+        .attr("opacity", ".9");
 
-    
+    var gcircles = svg.selectAll("circle")
+        .data(data)
+        .enter().append("g")
+
+    gcircles.append("text").text(function(d){
+          return d.name
+    }); */
+
+
+    var circles =  svg.selectAll("circle")
+        .data(data)
+        .enter().append('g');
+        
+        circles.append("circle")
+        .attr("class", "stateCircles")
+        .attr("r", "15")
+        .attr("cx", d => xLinearScale(d.income))
+        .attr("cy", d => yLinearScale(d.smokes))
+        .attr("fill", "#27b2ff")
+        .attr("stroke", "black")
+        .attr("stroke-width", "1")
+        .attr("opacity", "1");
+        circles.append("text").text(function(d) {
+          return d.abbr;
+        })
+        .attr("x", (d => xLinearScale(d.income) - 12))
+        .attr("y", (d => yLinearScale(d.smokes) + 5));
 
     //Axes Labels
     chartGroup.append("text")
@@ -97,12 +127,12 @@ d3.csv("assets/data/data.csv").then(function(data) {
       .text("Percentage of Population that Smokes");
 
     chartGroup.append("text")
-      .attr("transform", `translate(${chartWidth / 2}, 670)`)
+      .attr("transform", `translate(${chartWidth / 2}, ${1300 - chartHeight})`)
       .attr("class", "axisText")
       .text("Median Income of State Population");
 
     //tooltip mouseover
-    var toolTip = d3.select("body")
+    /* var toolTip = d3.select("body")
         .append("div")
         .classed("tooltip", true);
 
@@ -117,7 +147,7 @@ d3.csv("assets/data/data.csv").then(function(data) {
       .on("mouseout", function() {
         console.log("Mouseout detected");
         toolTip.style("display", "nine");
-      });
+      }); */
 
 }).catch(function(error) {
     console.log(error);
