@@ -75,29 +75,6 @@ d3.csv("assets/data/data.csv").then(function(data) {
     chartGroup.append("g")
         .call(yAxis);
 
-    //State Circles
-    /* var circlesGroup = chartGroup.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("class", "StateCircle")
-        .attr("cx", d => xLinearScale(d.income))
-        .attr("cy", d => yLinearScale(d.smokes))
-        .attr("r", "10")
-        .attr("fill", "#27b2ff")
-        .attr("stroke", "black")
-        .attr("stroke-width", "1")
-        .attr("opacity", ".9");
-
-    var gcircles = svg.selectAll("circle")
-        .data(data)
-        .enter().append("g")
-
-    gcircles.append("text").text(function(d){
-          return d.name
-    }); */
-
-
     var circles =  svg.selectAll("circle")
         .data(data)
         .enter().append('g');
